@@ -2,7 +2,7 @@
 Simple tictactoe program made in c.
 
 ## How to run the program
---------------------------
+
 ## Linux
 First of all, check if you already have the GNU GCC Compiler with the command:
 ```
