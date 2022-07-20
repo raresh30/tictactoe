@@ -38,10 +38,10 @@ int ai(char board[3][3]) {
 }
 
 int main() {
-  int players, i, j, plen1, plen2, turn, move;
+  int players, i, j, plen1, plen2, turn, move, tie, found;
   char ch;
   plen1 = plen2 = -1;
-  turn = 0;
+  turn = tie = found = 0;
 
   for(i = 0; i < 3; i++) {
     for(j = 0; j < 3; j++) {
@@ -72,7 +72,7 @@ int main() {
     plen2 = i;
 
     // simulating game
-    while(win(board) == 0) {
+    while(win(board) == 0 && tie == 0) {
       move = -1;
       while(move < 1 || move > 9 || board[(move + (3 - move % 3) % 3) / 3 - 1][(move - 1) % 3] != '-') {
         if(move > -1) {
@@ -93,19 +93,35 @@ int main() {
       board[(move + (3 - move % 3) % 3) / 3 - 1][(move - 1) % 3] = turn == 0 ? 'X' : '0';
       print_board();
       turn = 1 - turn;
+      found = 0;
+      // checking if it's a draw
+      for(i = 0; i < 3; i++) {
+        for(j = 0; j < 3; j++) {
+          if(board[i][j] == '-') {
+            found = 1;
+          }
+        }
+      }
+      if(found == 0) {
+        tie = 1;
+      }
     }
 
     // checking who won
-    if(win(board) == 1) {
-      for(i = 0; i < plen1; i++) {
-        fputc(names[0][i], stdout);
-      }
+    if(tie == 1) {
+      printf("DRAW\n");
     } else {
-      for(i = 0; i < plen2; i++) {
-        fputc(names[1][i], stdout);
+      if(win(board) == 1) {
+        for(i = 0; i < plen1; i++) {
+          fputc(names[0][i], stdout);
+        }
+      } else if(win(board) == 2) {
+        for(i = 0; i < plen2; i++) {
+          fputc(names[1][i], stdout);
+        }
       }
+      printf(" WON\n");
     }
-    printf(" won\n");
   } else {
     // reading player names
     printf("Enter your name: ");
