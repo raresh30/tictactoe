@@ -108,19 +108,18 @@ int main() {
     }
 
     // checking who won
-    if(tie == 1) {
-      printf("DRAW\n");
-    } else {
-      if(win(board) == 1) {
-        for(i = 0; i < plen1; i++) {
-          fputc(names[0][i], stdout);
-        }
-      } else if(win(board) == 2) {
-        for(i = 0; i < plen2; i++) {
-          fputc(names[1][i], stdout);
-        }
+    if(win(board) == 1) {
+      for(i = 0; i < plen1; i++) {
+        fputc(names[0][i], stdout);
       }
-      printf(" WON\n");
+      printf("WON\n");
+    } else if(win(board) == 2) {
+      for(i = 0; i < plen2; i++) {
+        fputc(names[1][i], stdout);
+      }
+      printf("WON\n");
+    } else {
+      printf("DRAW\n");
     }
   } else {
     // reading player names
