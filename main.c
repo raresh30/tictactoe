@@ -112,7 +112,7 @@ int ai(char board[3][3], char ch, int level) {
       }
     }
   } else {
-
+    
   }
   return 0;
 }
@@ -223,7 +223,7 @@ int main() {
       if(turn == 0) {
         move = -1;
         while(move < 1 || move > 9 || board[(move + (3 - move % 3) % 3) / 3 - 1][(move - 1) % 3] != '-') {
-          if(move > -1) {
+          if(move != -1) {
             printf("INVALID MOVE\n");
           }
 
@@ -266,8 +266,8 @@ int main() {
       printf(" WON\n");
     } else if(win(board) == 2) {
       if(ch == '0') {
-        for(i = 0; i < plen2; i++) {
-          fputc(names[1][i], stdout);
+        for(i = 0; i < plen1; i++) {
+          fputc(names[0][i], stdout);
         }
       } else {
         printf("AI");
