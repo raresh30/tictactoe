@@ -19,7 +19,7 @@ Run this command to compile the program:
 ```
 gcc -o main main.c
 ```
-Now you can run the program with the command:
+Now you can run the program using the command:
 ```
 ./main
 ```
