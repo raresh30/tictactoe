@@ -117,8 +117,6 @@ int ai(char board[3][3], char ch, int level) {
   return 0;
 }
 
-char cboard[3][3] = {'0', '0', '-', '-', '-', '-', 'X', '-', 'X'};
-
 int main() {
   int players, i, j, plen1, plen2, turn, move, tie, found, input;
   char ch;
