@@ -8,7 +8,7 @@ First of all, check if you already have the GNU GCC Compiler with the command:
 ```
 gcc --version
 ```
-If you don't have it installed, then install it with the command:
+If you don't have it installed, then install it with these commands:
 ```
 sudo apt update
 sudo apt install build-essential
