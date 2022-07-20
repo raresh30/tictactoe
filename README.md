@@ -1,10 +1,10 @@
 # TicTacToe
 Simple tictactoe program made in c.
 
-# How to run the program
+##How to run the program
 --------------------------
-# Linux
+##Linux
 ...
 
-# Windows
+##Windows
 ...
