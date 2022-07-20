@@ -35,8 +35,30 @@ int win(char board[3][3]) {
   return 0;
 }
 
+int canWin(char board[3][3], char ch) {
+  char cboard[3][3];
+  int i, j;
+  for(i = 0; i < 3; i++) {
+    for(j = 0; j < 3; j++) {
+      cboard[i][j] = board[i][j];
+    }
+  }
+  for(i = 0; i < 3; i++) {
+    for(j = 0; j < 3; j++) {
+      if(cboard[i][j] == '-') {
+        cboard[i][j] = ch;
+        if(win(cboard) > 0) {
+          return (i + 1) * 3 - (3 - (j + 1));
+        }
+        cboard[i][j] = '-';
+      }
+    }
+  }
+  return 0;
+}
+
 int ai(char board[3][3], char ch, int level) {
-  int i, j, cnt, k;
+  int i, j, cnt, k, move;
   srand(time(NULL));
   if(level == 1) {
     cnt = 0;
@@ -54,18 +76,48 @@ int ai(char board[3][3], char ch, int level) {
         if(board[i][j] == '-') {
           cnt++;
           if(cnt == k) {
-            return (i + 1) * 3 - (3 - (j + 1));
+            move = (i + 1) * 3 - (3 - (j + 1));
+            return move;
           }
         }
       }
     }
   } else if(level == 2) {
-
+    if(canWin(board, ch) > 0) {
+      move = canWin(board, ch);
+      return move;
+    } else if(canWin(board, ch == 'X' ? '0' : 'X') > 0) {
+      move = canWin(board, ch == 'X' ? '0' : 'X');
+      return move;
+    } else {
+      cnt = 0;
+      for(i = 0; i < 3; i++) {
+        for(j = 0; j < 3; j++) {
+          if(board[i][j] == '-') {
+            cnt++;
+          }
+        }
+      }
+      k = rand() % (cnt - 1) + 1;
+      cnt = 0;
+      for(i = 0; i < 3; i++) {
+        for(j = 0; j < 3; j++) {
+          if(board[i][j] == '-') {
+            cnt++;
+            if(cnt == k) {
+              return (i + 1) * 3 - (3 - (j + 1));
+            }
+          }
+        }
+      }
+    }
   } else {
 
   }
   return 0;
 }
+
+char cboard[3][3] = {'0', '0', '-', '-', '-', '-', 'X', '-', 'X'};
 
 int main() {
   int players, i, j, plen1, plen2, turn, move, tie, found, input;
@@ -215,7 +267,7 @@ int main() {
       }
       printf(" WON\n");
     } else if(win(board) == 2) {
-      if(ch == 'X') {
+      if(ch == '0') {
         for(i = 0; i < plen2; i++) {
           fputc(names[1][i], stdout);
         }
